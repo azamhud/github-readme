@@ -27,6 +27,7 @@ export default {
   flex-direction: column;
   font-size: 2em;
   margin-top: 10px;
+  text-align: center;
 }
 
 .info-repos {

@@ -1,20 +1,27 @@
 <template>
-  <article class="readme">{{ readmeHTML }}</article>
+  <article v-if="show" class="readme" v-html="readmeHTML"></article>
+  <Info v-else class="info" />
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import Info from "./Info.vue";
 export default {
   name: "Readme",
+  components: {
+    Info
+  },
   computed: {
-    ...mapGetters(["readme"]),
+    ...mapGetters(["readme", "select"]),
     readmeHTML: function() {
       var MarkdownIt = require("markdown-it"),
         md = new MarkdownIt();
       return md.render(this.readme);
+    },
+    show: function() {
+      return this.select === true;
     }
-  },
-  methods: {}
+  }
 };
 </script>
 

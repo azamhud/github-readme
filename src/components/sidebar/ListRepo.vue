@@ -11,7 +11,7 @@
       align="fill"
       size="sm"
       limit="3"
-      hide-goto-end-buttons="true"
+      :hide-goto-end-buttons="true"
     />
     <div
       v-for="repo in limitRepos"
@@ -45,7 +45,6 @@ export default {
     },
     limitRepos() {
       const startIndex = (this.currentPage - 1) * 5;
-      console.log(startIndex);
       return this.allRepos.slice(startIndex, startIndex + 5);
     }
   },

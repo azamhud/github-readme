@@ -1,19 +1,19 @@
 <template>
   <div class="sidebar" :class="listRepo">
-    <InfoSidebar v-if="info" />
+    <Info v-if="info" />
     <ListRepo v-else />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import InfoSidebar from "./InfoSidebar.vue";
+import Info from "./Info.vue";
 import ListRepo from "./ListRepo.vue";
 
 export default {
   name: "Sidebar",
   components: {
-    InfoSidebar,
+    Info,
     ListRepo
   },
   computed: {

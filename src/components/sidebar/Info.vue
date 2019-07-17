@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "InfoSidebar"
+  name: "Info"
 };
 </script>
 

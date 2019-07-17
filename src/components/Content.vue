@@ -1,21 +1,18 @@
 <template>
   <div class="content">
     <Sidebar class="sidebar" />
-    <Readme v-if="readme" class="readme"> </Readme>
-    <Info v-else class="info" />
+    <Readme class="readme"></Readme>
   </div>
 </template>
 
 <script>
-import Readme from "./Readme.vue";
-import Info from "./Info.vue";
-import Sidebar from "./Sidebar.vue";
+import Readme from "./readme/Readme.vue";
+import Sidebar from "./sidebar/Sidebar.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Content",
   components: {
-    Info,
     Readme,
     Sidebar
   },
@@ -46,11 +43,6 @@ export default {
 .readme {
   width: 80%;
   text-align: left;
-  background-color: white;
-}
-
-.info {
-  width: 80%;
   background-color: white;
 }
 </style>
