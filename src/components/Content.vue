@@ -1,8 +1,8 @@
 <template>
   <div class="content">
-    <Sidebar class="sidebar"/>
-    <Readme class="readme" v-if="readme">B</Readme>
-    <Info class="info" v-else></Info>
+    <Sidebar class="sidebar" />
+    <Readme v-if="readme" class="readme"> </Readme>
+    <Info v-else class="info" />
   </div>
 </template>
 
@@ -10,25 +10,26 @@
 import Readme from "./Readme.vue";
 import Info from "./Info.vue";
 import Sidebar from "./Sidebar.vue";
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
   name: "Content",
-  props: ["content"],
   components: {
-      Info,
-      Readme,
-      Sidebar
+    Info,
+    Readme,
+    Sidebar
   },
   computed: {
-      ...mapGetters(["found","select"]),
-      readme: function(){return this.select === true;}
-      }
+    ...mapGetters(["found", "select"]),
+    readme: function() {
+      return this.select === true;
+    }
+  }
 };
 </script>
 
 <style scoped>
-.content{
+.content {
   display: flex;
   margin: 10px;
   width: auto;
@@ -36,21 +37,20 @@ export default {
   min-height: 500px;
 }
 
-.sidebar{
+.sidebar {
   width: 20%;
   max-height: none;
   background-color: white;
 }
 
-.readme{
+.readme {
   width: 80%;
   text-align: left;
   background-color: white;
 }
 
-.info{
+.info {
   width: 80%;
   background-color: white;
-
 }
 </style>

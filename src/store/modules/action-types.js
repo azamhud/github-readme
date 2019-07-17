@@ -1,2 +1,1 @@
-export const GET_REPOS = 'GET_REPOS';
-export const CHECK_USERNAME = 'CHECK_USERNAME';
+export const GET_REPOS = "GET_REPOS";

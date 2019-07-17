@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p class="title">List Repo</p>
+    <p class="title">
+      List Repo
+    </p>
     <b-pagination
       v-model="currentPage"
       :total-rows="rows"
@@ -10,10 +12,14 @@
       size="sm"
       limit="3"
       hide-goto-end-buttons="true"
-    ></b-pagination>
-    <div v-for="repo in limitRepos" :key="repo.id" v-on:click="onSelect(repo.id, $event)">
-      <Repo v-bind:repo="repo"></Repo>
-    </div> 
+    />
+    <div
+      v-for="repo in limitRepos"
+      :key="repo.id"
+      @click="onSelect(repo.id, $event)"
+    >
+      <Repo :repo="repo" />
+    </div>
   </div>
 </template>
 
@@ -22,15 +28,15 @@ import Repo from "./Repo.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ListRepo",
+  components: {
+    Repo
+  },
   data() {
     return {
       perPage: 5,
       currentPage: 1,
-        textToast: ''
+      textToast: ""
     };
-  },
-  components: {
-    Repo
   },
   computed: {
     ...mapGetters(["allRepos"]),
@@ -45,14 +51,13 @@ export default {
   },
   methods: {
     ...mapActions(["GET_README"]),
-    onSelect: function(id, event) {
-      this.GET_README(id)
-      .then((resp) => {
-            if(resp.status === 404){
-                this.textToast = 'Username not found !!!'
-                this.$bvToast.show('my-toast')
-            }
-       });
+    onSelect: function(id) {
+      this.GET_README(id).then(resp => {
+        if (resp.status === 404) {
+          this.textToast = "Username not found !!!";
+          this.$bvToast.show("my-toast");
+        }
+      });
     }
   }
 };

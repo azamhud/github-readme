@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <Home></Home>
+    <Home />
   </div>
 </template>
 
 <script>
-import Home from './views/Home.vue'
+import Home from "./views/Home.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Home
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -25,8 +25,7 @@ export default {
   margin-top: 10px;
 }
 
-body{
-
+body {
   background-color: aquamarine;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="sidebar" v-bind:class="listRepo">
-    <InfoSidebar v-if="info"></InfoSidebar>
+  <div class="sidebar" :class="listRepo">
+    <InfoSidebar v-if="info" />
     <ListRepo v-else />
   </div>
 </template>
