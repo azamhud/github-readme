@@ -5,7 +5,7 @@
 ## Build Setup
 
 ``` 
-# install dependencies
+# Install dependencies
 npm install
 
 # Compiles and hot-reloads for development
