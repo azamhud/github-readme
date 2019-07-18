@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "Info"
+  name: "InfoSidebar"
 };
 </script>
 
@@ -14,8 +14,11 @@ export default {
 .info-sidebar {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  width: 20%;
   padding-top: 200px;
   font-size: 1em;
+  border: 1px solid blueviolet;
+  border-radius: 5px;
+  background-color: white;
 }
 </style>

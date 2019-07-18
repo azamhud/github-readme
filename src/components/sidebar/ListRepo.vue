@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <p class="title">
-      List Repo
-    </p>
+  <div class="listrepo">
+    <p class="title">List Repo</p>
     <b-pagination
       v-model="currentPage"
       :total-rows="rows"
@@ -16,20 +14,22 @@
     <div
       v-for="repo in limitRepos"
       :key="repo.id"
-      @click="onSelect(repo.id, $event)"
+      @click="onSelect(repo.name, $event)"
     >
-      <Repo :repo="repo" />
+      <RepoItem :name="repo.name" :desc="repo.desc" />
     </div>
   </div>
 </template>
 
 <script>
-import Repo from "./Repo.vue";
+import RepoItem from "./RepoItem.vue";
 import { mapGetters, mapActions } from "vuex";
+import store from "../../store";
+
 export default {
   name: "ListRepo",
   components: {
-    Repo
+    RepoItem
   },
   data() {
     return {
@@ -38,8 +38,27 @@ export default {
       textToast: ""
     };
   },
+  beforeRouteEnter(to, from, next) {
+    store.dispatch("checkUsername", to.params.user).then(resp => {
+      if (resp.status === 404) {
+        next({ path: "/" });
+      } else {
+        next();
+      }
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    store.dispatch("checkUsername", to.params.user).then(resp => {
+      if (resp.status === 404) {
+        next({ path: "/" });
+        this.$bvToast.show("warningToast");
+      } else {
+        next();
+      }
+    });
+  },
   computed: {
-    ...mapGetters(["allRepos"]),
+    ...mapGetters(["allRepos", "username"]),
     rows() {
       return this.allRepos.length;
     },
@@ -49,14 +68,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["GET_README"]),
-    onSelect: function(id) {
-      this.GET_README(id).then(resp => {
-        if (resp.status === 404) {
-          this.textToast = "Username not found !!!";
-          this.$bvToast.show("my-toast");
-        }
-      });
+    ...mapActions(["getReadme"]),
+    onSelect: function(name) {
+      this.$router.push({ path: `/${this.username}/${name}` });
     }
   }
 };
@@ -66,5 +80,16 @@ export default {
 .title {
   margin-top: 15px;
   font-size: 1.5em;
+}
+
+.listrepo {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  font-size: 1em;
+  border: 1px solid blueviolet;
+  border-radius: 5px;
+  background-color: white;
+  max-height: fit-content !important;
 }
 </style>

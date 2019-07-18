@@ -1,26 +1,21 @@
 <template>
   <div class="content">
-    <Sidebar class="sidebar" />
-    <Readme class="readme"></Readme>
+    <router-view name="sidebar"></router-view>
+    <router-view name="readme"></router-view>
+    <!-- <Sidebar class="sidebar" />
+    <Readme class="readme"></Readme> -->
   </div>
 </template>
 
 <script>
-import Readme from "./readme/Readme.vue";
-import Sidebar from "./sidebar/Sidebar.vue";
-import { mapGetters } from "vuex";
+//import Readme from "./readme";
+// import Sidebar from "./sidebar";
 
 export default {
   name: "Content",
   components: {
-    Readme,
-    Sidebar
-  },
-  computed: {
-    ...mapGetters(["found", "select"]),
-    readme: function() {
-      return this.select === true;
-    }
+    //Readme
+    // Sidebar
   }
 };
 </script>
@@ -41,6 +36,12 @@ export default {
 }
 
 .readme {
+  width: 80%;
+  text-align: left;
+  background-color: white;
+}
+
+.info {
   width: 80%;
   text-align: left;
   background-color: white;

@@ -1,24 +1,27 @@
 <template>
   <div class="box">
     <div class="name">
-      {{ repo.name }}
+      {{ name }}
     </div>
     <div class="desc">
-      {{ repo.desc }}
+      {{ desc }}
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Repo",
+  name: "RepoItem",
   props: {
-    repo: {
-      type: Object,
-      default() {
-        return { name: "", desc: "" };
-      },
+    name: {
+      type: String,
+      default: "",
       required: true
+    },
+    desc: {
+      type: String,
+      default: "",
+      required: false
     }
   }
 };

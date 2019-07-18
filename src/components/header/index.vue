@@ -2,16 +2,16 @@
   <div class="header">
     <p>GITHUB README</p>
     <p>See readme for each repo from any user in github</p>
-    <User />
+    <Input />
   </div>
 </template>
 
 <script>
-import User from "./User.vue";
+import Input from "./Input.vue";
 export default {
   name: "Header",
   components: {
-    User
+    Input
   }
 };
 </script>

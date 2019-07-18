@@ -1,96 +1,78 @@
-import {
-  SET_USERNAME,
-  SET_REPOS,
-  SET_FOUND,
-  SET_SEARCHING,
-  SET_README,
-  SET_SELECT,
-  SET_TOAST_TEXT
-} from "../modules/mutation-types";
+import * as plannerTypes from "../modules/mutation-types";
 import axios from "axios";
-import { GET_REPOS } from "./action-types";
 import { BASE_URL_API, BASE_URL_RAW } from "./baseurl";
 
 const state = {
   username: "",
-  found: false,
   repos: [],
-  select: false,
   readme: "",
   toasttext: ""
 };
 
 const getters = {
   allRepos: state => state.repos,
-  user: state => state.username,
-  found: state => state.found,
-  searching: state => state.searching,
+  username: state => state.username,
   readme: state => state.readme,
-  select: state => state.select,
   toastText: state => state.toasttext
 };
 
 const actions = {
-  async CHECK_USERNAME({ dispatch, commit }, username) {
-    return await axios
+  checkUsername({ dispatch, commit }, username) {
+    return axios
       .get(`${BASE_URL_API}users/${username}`)
       .then(response => {
         const verifyUsername = response.data.login;
-        commit(SET_USERNAME, verifyUsername);
-        commit(SET_SEARCHING, true);
-        commit(SET_FOUND, true);
-        dispatch(GET_REPOS);
+        commit(plannerTypes.SET_USERNAME, verifyUsername);
+        dispatch("getRepos");
         return verifyUsername;
       })
       .catch(error => {
-        commit(SET_TOAST_TEXT, "Username not found !!!");
-        commit(SET_FOUND, false);
-        commit(SET_SELECT, false);
+        commit(plannerTypes.SET_TOAST_TEXT, "Username not found !!!");
         return error.response;
       });
   },
 
-  async GET_REPOS({ commit, state }) {
-    await axios
+  getRepos({ commit, state }) {
+    return axios
       .get(`${BASE_URL_API}users/${state.username}/repos`)
       .then(response => {
         const dataRepos = response.data;
-        var result = [];
-        dataRepos.forEach((repo, number) => {
-          const eachRepo = {
+        var result = dataRepos.map((repo, number) => {
+          let newObj = {
             id: number,
             name: repo.name,
             desc: repo.description
           };
-          result.push(eachRepo);
+          return newObj;
         });
-        commit(SET_REPOS, result);
+        commit(plannerTypes.SET_REPOS, result);
       });
   },
 
-  async GET_README({ commit, state }, id) {
+  getReadme({ commit, state }, payload) {
     const repos = state.repos;
-    const repo = repos.find(repo => repo.id === id);
-    const url = `${BASE_URL_RAW}${state.username}/${repo.name}/master/README.md`;
-    return await axios
+    const repo = repos.find(repo => repo.name === payload.project);
+    var url = "";
+    if (repo === undefined) {
+      url = `${BASE_URL_RAW}${state.username}//master/README.md`;
+    } else {
+      url = `${BASE_URL_RAW}${state.username}/${repo.name}/master/README.md`;
+    }
+    return axios
       .get(url)
       .then(response => {
-        commit(SET_README, response.data);
-        commit(SET_SELECT, true);
+        commit(plannerTypes.SET_README, response.data);
+        return response;
       })
       .catch(error => {
-        commit(SET_TOAST_TEXT, "Readme file not found !!!");
-        commit(SET_README, "");
-        commit(SET_SELECT, false);
+        commit(plannerTypes.SET_TOAST_TEXT, "Readme file not found !!!");
+        commit(plannerTypes.SET_README, "");
         return error.response;
       });
   }
 };
 
 const mutations = {
-  SET_SELECT: (state, select) => (state.select = select),
-  SET_SEARCHING: (state, searching) => (state.searching = searching),
-  SET_FOUND: (state, found) => (state.found = found),
   SET_REPOS: (state, repos) => (state.repos = repos),
   SET_USERNAME: (state, username) => (state.username = username),
   SET_README: (state, readme) => (state.readme = readme),

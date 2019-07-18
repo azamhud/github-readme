@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "Info"
+  name: "InfoReadme"
 };
 </script>
 
