@@ -1,28 +1,23 @@
 # github-readme
 
-See readme files from each repo in github universe :)
+> See readme for each repo in github
 
-## Project setup
-```
+## Build Setup
+
+``` 
+# install dependencies
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+# Compiles and hot-reloads for development
 
-### Compiles and minifies for production
-```
-npm run build
-```
+$npm run serve
 
-### Run your tests
-```
-npm run test
-```
+# Compiles and minifies for production
 
-### Lints and fixes files
-```
-npm run lint
+$npm run build
+
+# Lints and fixes files
+
+$npm run lint
+
 ```
